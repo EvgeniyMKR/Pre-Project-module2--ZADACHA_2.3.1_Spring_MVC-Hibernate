@@ -1,0 +1,10 @@
+#Database properties
+db.driver=(ваш драйвер СУБД)
+db.url=(url вашей БД)?allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false&requireSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC
+db.username=(пользователь)
+db.password=(пароль)
+
+#Hibernate properties
+hibernate.dialect=(диалект вашей СУБД)
+hibernate.show_sql=true
+hibernate.hbm2ddl.auto=create

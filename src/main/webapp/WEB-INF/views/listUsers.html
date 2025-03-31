@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список сотрудников</title>
+</head>
+<body>
+<a href="/">назад на главную</a>
+
+<form method="post" action="users/create">
+    <label for="name">Имя</label>
+    <input name="name" type="text"  id="name" required>
+    <br>
+
+    <label for="lastName">Фамилия</label>
+    <input name="lastName" type="text"  id="lastName" required>
+    <br>
+
+    <label for="email">email </label>
+    <input name="email" type="email"  id="email" required>
+    <br>
+    <input type="submit" value="Добавить нового сотрудника">
+</form>
+<hr>
+<h1>Список сотрудников:</h1>
+<div>
+    <th:block th:each="user, position : ${listUsers}">
+        <h2 th:text="${position.index+1} + '.'"></h2>
+        <p th:text="'ID номер сотрудника: ' + ${user.getId()}"></p>
+        <p th:text="'Имя: ' + ${user.getFirstName()}"></p>
+        <p th:text="'Фамилия: ' + ${user.getLastName()}"></p>
+        <p th:text="'Email: ' + ${user.getEmail()}"></p>
+        <br>
+        <form method="post" action="users/update">
+            <input type="hidden" name="id" th:value="${user.getId()}">
+            <label for="new_name">Имя</label>
+            <input name="new_name" type="text"  id="new_name" required>
+            <br>
+
+            <label for="new_lastName">Фамилия</label>
+            <input name="new_lastName" type="text"  id="new_lastName" required>
+            <br>
+
+            <label for="new_email">email </label>
+            <input name="new_email" type="email"  id="new_email" required>
+            <br>
+            <input type="submit" value="Редактировать данные сотрудника">
+        </form>
+        <br>
+        <br>
+        <form method="post" action="users/delete">
+            <input type="hidden" name="id" th:value="${user.getId()}">
+            <input type="submit" value="Удалить сотрудника">
+        </form>
+
+        <hr/>
+    </th:block>
+</div>
+</body>
+</html>
+

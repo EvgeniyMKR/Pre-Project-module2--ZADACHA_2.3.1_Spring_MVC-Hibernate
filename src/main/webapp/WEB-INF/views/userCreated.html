@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Сотрудник добавлен</title>
+</head>
+<body>
+<a href="/">назад на главную</a>
+<br>
+<a href="/users">к списку сотрудников</a>
+
+<div>
+    <h1>Сотрудник был успешно добавлен!</h1>
+    <p th:text="'ID номер сотрудника: ' + ${newUser.getId()}"></p>
+    <p th:text="'Имя сотрудника: ' + ${newUser.getFirstName()}"></p>
+    <p th:text="'Фамилия сотрудника: ' + ${newUser.getLastName()}"></p>
+    <p th:text="'Email сотрудника: ' + ${newUser.getEmail()}"></p>
+</div>
+</body>
+</html>
