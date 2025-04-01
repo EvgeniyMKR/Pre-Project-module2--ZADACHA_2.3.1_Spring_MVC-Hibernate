@@ -16,14 +16,6 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private final EntityManager entityManager;
 
-//    private final SessionFactory sessionFactory;
-
-//    @Autowired
-//    public UserDaoImpl(SessionFactory sessionFactory, EntityManager entityManager) {
-//        this.sessionFactory = sessionFactory;
-//        this.entityManager = entityManager;
-//    }
-
     @Autowired
     public UserDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -31,40 +23,31 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User user) {
-//        sessionFactory.getCurrentSession()
-//                .save(user);
         entityManager.persist(user);
     }
 
     @Override
     public List<User> readUsers() {
-//        return sessionFactory.getCurrentSession()
-//                .createQuery("from User", User.class)
-//                .list();
         return entityManager
                 .createQuery("from User", User.class)
                 .getResultList();
     }
 
     @Override
-    public void update(long id, String firstName, String lastName, String email) {
-//        User upsateUser = sessionFactory.getCurrentSession().load(User.class, id);
-//        upsateUser.setFirstName(firstName != null ? firstName : upsateUser.getFirstName());
-//        upsateUser.setLastName(lastName != null ? lastName : upsateUser.getLastName());
-//        upsateUser.setEmail(email != null ? email : upsateUser.getEmail());
+    public void update(long id, User user) {
 
-        User upsateUser = entityManager.find(User.class, id);
-        upsateUser.setFirstName(firstName != null ? firstName : upsateUser.getFirstName());
-        upsateUser.setLastName(lastName != null ? lastName : upsateUser.getLastName());
-        upsateUser.setEmail(email != null ? email : upsateUser.getEmail());
+        entityManager.createQuery("update User u set u.firstName = :firstName , u.lastName =:lastname, u.email = :email where u.id = :id")
+                .setParameter("firstName", user.getFirstName())
+                .setParameter("lastname", user.getLastName())
+                .setParameter("email", user.getEmail())
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     @Override
     public void delete(long id) {
-//        sessionFactory.getCurrentSession()
-//                .createQuery("delete from User where id=:id")
-//                .setParameter("id", id)
-//                .executeUpdate();
-        entityManager.remove(entityManager.find(User.class, id));
+        entityManager.createQuery("delete from User where id =:id")
+                .setParameter("id", id)
+                .executeUpdate();
     }
 }
